@@ -3,7 +3,7 @@ using TesodevCase.Entities;
 
 namespace TesodevCase.Entities
 {
-    public class Customer
+    public class Customer 
     {
         // Buradaki entitilerin configurasyonunda data annotation ile yaptim. Diger child classi(Address) fluent Api ile yapacagim.
         [Required]
@@ -11,6 +11,7 @@ namespace TesodevCase.Entities
         [Required]
         public string Name { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
@@ -18,5 +19,8 @@ namespace TesodevCase.Entities
         public DateTime UpdatedAt { get; set;}
         [Required]
         public Address Address { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+        
     }
 }

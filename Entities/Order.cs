@@ -19,5 +19,7 @@ namespace TesodevCase.Entities
 
         public DateTime UpdatedAt { get; set; }
 
+        public Customer Customer { get; set; }
+
     }
 }
