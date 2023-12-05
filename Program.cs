@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TesodevCase.DAL.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<TesodevDbContext>
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbConnectionString")));
+// Serviceleri build etmeden once database baglantisi icin gerekli olan connection stringimizi servislere kaydettik.
 
 var app = builder.Build();
 

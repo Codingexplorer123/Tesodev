@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using TesodevCase.Entities;
+using Newtonsoft.Json;
 
 namespace TesodevCase.DAL.EntityConfig
 {
@@ -18,13 +22,12 @@ namespace TesodevCase.DAL.EntityConfig
             builder.Property(p=>p.CreatedAt).IsRequired();
             builder.Property(p=>p.UpdatedAt).IsRequired();
 
-            builder.HasOne<Customer>(e => e.Customer).WithMany(e => e.Orders).HasForeignKey(e => e.CustomerId).HasPrincipalKey(e => e.Id);
+            builder.HasOne<Customer>(e => e.Customer).WithMany(e => e.Orders).IsRequired().HasForeignKey(e => e.CustomerId).HasPrincipalKey(e => e.Id);
 
-            
-
-
-
-
+            // Newtonsoft paketi ile json objeleri string degelere ve string degerleri json objesine donduruyoruz.
+            builder.Property(p => p.Address).HasConversion(v=> JsonConvert.SerializeObject(v), v => JsonConvert.DeserializeObject<Address>(v));
+            builder.Property(p => p.Product).HasConversion(v => JsonConvert.SerializeObject(v), v => JsonConvert.DeserializeObject<Product>(v));
+            builder.Property(p => p.Customer).HasConversion(v => JsonConvert.SerializeObject(v), v => JsonConvert.DeserializeObject<Customer>(v));
         }
     }
 }
