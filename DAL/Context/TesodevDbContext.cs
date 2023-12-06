@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Reflection;
 using TesodevCase.Entities;
 
@@ -28,14 +29,18 @@ namespace TesodevCase.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             // entityconfig klasorumuzun icinde yaptigimiz entitlerdeki tum ayarlari ef core ile uygulamamizi saglar.
             
-            modelBuilder.Entity<Address>().ToTable("Address");
-            modelBuilder.Entity<Customer>().ToTable("Customer");
-            modelBuilder.Entity<Order>().ToTable("Order");
-            modelBuilder.Entity<Product>().ToTable("Product");
+            //modelBuilder.Entity<Address>().ToTable("Address");
+            //modelBuilder.Entity<Customer>().ToTable("Customer");
+            //modelBuilder.Entity<Order>().ToTable("Order");
+            //modelBuilder.Entity<Product>().ToTable("Product");
+
+          
+
         }
 
     }

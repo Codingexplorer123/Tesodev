@@ -12,6 +12,9 @@ namespace TesodevCase.DAL.EntityConfig
             builder.Property(p => p.City).IsRequired();
             builder.Property(p=>p.Country).IsRequired();
             builder.Property(p=>p.CityCode).IsRequired();
+            builder.Property(p=>p.AddressLine).IsRequired();
+
+            builder.Property(p=>p.Id).ValueGeneratedOnAdd();
         }
     }
 }
