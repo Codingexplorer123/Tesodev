@@ -1,51 +1,60 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TesodevCase.CQRS.Commands.Request;
+using TesodevCase.CQRS.Commands.Response;
 using TesodevCase.DAL.Context;
 
 
 namespace TesodevCase.CQRS.Handlers.CommandHandlers
 {
-    public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand>
+    public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommandRequest,UpdateOrderCommandResponse>
     {
         private readonly TesodevDbContext _dbContext;
         public UpdateOrderCommandHandler(TesodevDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<Unit> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
+     public async Task<UpdateOrderCommandResponse> Handle(UpdateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.
-                        Include(t => t.Address).Include(t => t.Product).
-                        Include(t => t.Customer).FirstOrDefaultAsync(f=>f.Id == command.OrderId , cancellationToken);
+            var order = await _dbContext.Orders.Include(t => t.Product).Include(t => t.Address)
+                                               .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
             
             if(order == null)
             {
-                return Unit.Value;
+                return new UpdateOrderCommandResponse()
+                {
+                    IsSuccess = false
+                };
             }
-            order.Quantity = command.Quantity;
-            order.Price = command.Price;
-            order.Status = command.Status;
-            order.UpdatedAt = DateTime.Now;
+            order.CustomerId = request.CustomerId;
+            order.Quantity = request.Quantity;
+            order.Price = request.Price;
+            order.Status = request.Status;
+            order.UpdatedAt = DateTime.UtcNow;
 
             if(order.Product != null)
             {
-                order.Product.Name = command.ProductName;
-                order.Product.ImageUrl = command.ProductImageUrl;
+                order.Product.Name = request.ProductName;
+                order.Product.ImageUrl = request.ProductImageUrl;
             }
             
             if(order.Address != null)
             {
-                order.Address.AddressLine = command.AddressLine;
-                order.Address.City = command.City;
-                order.Address.Country = command.Country;
-                order.Address.CityCode = command.CityCode;
+                order.Address.AddressLine = request.AddressLine;
+                order.Address.City = request.City;
+                order.Address.Country = request.Country;
+                order.Address.CityCode = request.CityCode;
             }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return new UpdateOrderCommandResponse()
+            {
+                IsSuccess = true
+            };
 
         }
 
+        
+       
     }
 }

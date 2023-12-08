@@ -3,35 +3,41 @@
 using TesodevCase.Entities;
 using TesodevCase.CQRS.Commands.Request;
 using MediatR;
+using TesodevCase.CQRS.Commands.Response;
 
 namespace TesodevCase.CQRS.Handlers.CommandHandlers
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Guid>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommandRequest, CreateOrderCommandResponse>
     {
         private readonly TesodevDbContext _dbContext;
-        
+
 
         public CreateOrderCommandHandler(TesodevDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<Guid> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
+        public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            var order = new Order
+            Guid id = Guid.NewGuid();
+            Order order = new Order()
             {
-                CustomerId = command.CustomerId,
-                Quantity = command.Quantity,
-                Price = command.Price,
-                Status = command.Status,
-                AddressId = command.AddressId,
-                ProductId = command.ProductId,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                Id = id,
+                CustomerId = request.CustomerId,
+                Quantity = request.Quantity,
+                Price = request.Price,
+                Status = request.Status,
+                Address = request.Address,
+                Product = request.Product,
+                CreatedAt = DateTime.UtcNow
             };
             _dbContext.Orders.Add(order);
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return order.Id;
+
+            return new CreateOrderCommandResponse()
+            {
+                Id = id,
+            };
         }
     }
 }
