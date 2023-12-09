@@ -29,16 +29,20 @@ namespace TesodevCase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById([FromQuery] GetOrderByIdQueryRequest request)
         {
-            if(request.Id ==null)
-            {
-                return BadRequest("Lutfen bir id degeri giriniz");
-            }
+            
            GetOrderByIdQueryResponse order = await _mediator.Send(request);
             if (order == null)
             {
                 return NotFound("Ilgili idli kayit bulunamadi");
             }
             return Ok(order);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCustomerAllOrder([FromQuery] GetOrdersByCustomerIdQuery request)
+        {
+            var orders = await _mediator.Send(request);
+            return Ok(orders);
         }
 
         [HttpPost]
