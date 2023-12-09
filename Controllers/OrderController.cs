@@ -41,7 +41,7 @@ namespace TesodevCase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerAllOrder([FromQuery] GetOrdersByCustomerIdQuery request)
         {
-            var orders = await _mediator.Send(request);
+          List< GetOrdersByCustomerIdResponse> orders = await _mediator.Send(request);
             return Ok(orders);
         }
 
