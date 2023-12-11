@@ -9,10 +9,10 @@ namespace TesodevCase.CQRS.Handlers.CommandHandlers
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommandRequest, CreateOrderCommandResponse>
     {
-        private readonly TesodevDbContext _dbContext;
+        private readonly OrderDbContext _dbContext;
 
 
-        public CreateOrderCommandHandler(TesodevDbContext dbContext)
+        public CreateOrderCommandHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -5,9 +5,9 @@ using TesodevCase.Entities;
 
 namespace TesodevCase.DAL.Context
 {
-    public class TesodevDbContext :DbContext
+    public class OrderDbContext :DbContext
     {
-        public TesodevDbContext(DbContextOptions<TesodevDbContext> options) : base(options) 
+        public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) 
         {
             
         }

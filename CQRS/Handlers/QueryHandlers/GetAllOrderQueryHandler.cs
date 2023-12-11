@@ -8,8 +8,8 @@ namespace TesodevCase.CQRS.Handlers.QueryHandlers
 {
     public class GetAllOrderQueryHandler : IRequestHandler<GetAllOrderQueryRequest, List<Order>>
     {
-        private readonly TesodevDbContext _dbContext;
-        public GetAllOrderQueryHandler(TesodevDbContext dbContext)
+        private readonly OrderDbContext _dbContext;
+        public GetAllOrderQueryHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }

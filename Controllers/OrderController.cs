@@ -46,9 +46,9 @@ namespace TesodevCase.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateCustomerCommandRequest request)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommandRequest request)
         {
-            CreateCustomerCommandResponse order = await _mediator.Send(request);
+            CreateOrderCommandResponse order = await _mediator.Send(request);
             return Ok(order);
         }
         [HttpDelete("{id}")]
@@ -62,9 +62,9 @@ namespace TesodevCase.Controllers
             return Ok(order);
         }
         [HttpPut ("{id}")]
-        public async Task<IActionResult> UpdateOrder (UpdateCustomerCommandRequest request)
+        public async Task<IActionResult> UpdateOrder (UpdateOrderCommandRequest request)
         {
-            UpdateCustomerCommandResponse order = await _mediator.Send(request);
+            UpdateOrderCommandResponse order = await _mediator.Send(request);
             if( order == null)
             {
                 return NotFound() ;

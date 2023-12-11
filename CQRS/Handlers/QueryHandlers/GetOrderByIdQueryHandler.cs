@@ -9,8 +9,8 @@ namespace TesodevCase.CQRS.Handlers.QueryHandlers
 {
     public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQueryRequest, GetOrderByIdQueryResponse>
     {
-        private readonly TesodevDbContext _dbContext;
-        public GetOrderByIdQueryHandler(TesodevDbContext dbContext)
+        private readonly OrderDbContext _dbContext;
+        public GetOrderByIdQueryHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }

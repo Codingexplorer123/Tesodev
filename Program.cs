@@ -27,7 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+// Api Gateway kullandigimiz icin bunu kapattik.
 
 app.UseAuthorization();
 

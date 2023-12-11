@@ -7,8 +7,8 @@ namespace TesodevCase.CQRS.Handlers.QueryHandlers
 {
     public class ChangeOrderStatusHandler : IRequestHandler<ChangeOrderStatusQueryRequest, bool>
     {
-        private readonly TesodevDbContext _dbContext;
-        public ChangeOrderStatusHandler(TesodevDbContext dbContext)
+        private readonly OrderDbContext _dbContext;
+        public ChangeOrderStatusHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }

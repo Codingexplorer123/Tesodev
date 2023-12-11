@@ -9,8 +9,8 @@ namespace TesodevCase.CQRS.Handlers.CommandHandlers
 {
     public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommandRequest, DeleteOrderCommandResponse>
     {
-        private readonly TesodevDbContext _dbContext;
-        public DeleteOrderCommandHandler(TesodevDbContext dbContext)
+        private readonly OrderDbContext _dbContext;
+        public DeleteOrderCommandHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }

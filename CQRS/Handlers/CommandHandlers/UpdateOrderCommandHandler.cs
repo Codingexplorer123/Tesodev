@@ -9,8 +9,8 @@ namespace TesodevCase.CQRS.Handlers.CommandHandlers
 {
     public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommandRequest,UpdateOrderCommandResponse>
     {
-        private readonly TesodevDbContext _dbContext;
-        public UpdateOrderCommandHandler(TesodevDbContext dbContext)
+        private readonly OrderDbContext _dbContext;
+        public UpdateOrderCommandHandler(OrderDbContext dbContext)
         {
             _dbContext = dbContext;
         }
