@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OrderApi.RabbitMQ;
 using System.Reflection;
 using TesodevCase.DAL.Context;
 using TesodevCase.Service;
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<OrderDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbConnectionString")));
 // Serviceleri build etmeden once database baglantisi icin gerekli olan connection stringimizi servislere kaydettik.
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddScoped<IMessageProducer,RabbitMQProducer>();
 builder.Services.AddTesodevServices();
 
 var app = builder.Build();

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OrderApi.RabbitMQ;
 using TesodevCase.CQRS.Commands.Request;
 using TesodevCase.CQRS.Commands.Response;
 using TesodevCase.CQRS.Queries.Request;
@@ -14,9 +15,11 @@ namespace TesodevCase.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public OrderController(IMediator mediator)
+        private readonly IMessageProducer _messagePublisher;
+        public OrderController(IMediator mediator, IMessageProducer messageProducer)
         {
             _mediator= mediator;
+            _messagePublisher= messageProducer;
         }
 
         [HttpGet]
@@ -49,6 +52,7 @@ namespace TesodevCase.Controllers
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommandRequest request)
         {
             CreateOrderCommandResponse order = await _mediator.Send(request);
+            _messagePublisher.SendMessage(order); // it will publish the message to RabbitMQ
             return Ok(order);
         }
         [HttpDelete("{id}")]
