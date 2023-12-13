@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<TesodevDbContext>
+builder.Services.AddDbContext<OrderDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbConnectionString")));
 // Serviceleri build etmeden once database baglantisi icin gerekli olan connection stringimizi servislere kaydettik.
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
