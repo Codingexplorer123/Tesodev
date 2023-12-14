@@ -2,19 +2,16 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TesodevCase.Entities;
 
-namespace TesodevCase.DAL.EntityConfig
+namespace DAL.EntityConfig
 {
     public class AdressConfig : IEntityTypeConfiguration<Address>
-        // Entity address modelimde fluent api ile gerekli konfigurasyon ayarlirini yapmak icin IEntityTypeConfigurationdan interfacesinden kalitim aldim.
+    // Entity address modelimde fluent api ile gerekli konfigurasyon ayarlirini yapmak icin IEntityTypeConfigurationdan interfacesinden kalitim aldim.
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.Property(p => p.City).IsRequired();
-            builder.Property(p=>p.Country).IsRequired();
-            builder.Property(p=>p.CityCode).IsRequired();
-            builder.Property(p=>p.AddressLine).IsRequired();
-
-            builder.Property(p=>p.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.Country).IsRequired();
+            builder.Property(p => p.CityCode).IsRequired();
         }
     }
 }
